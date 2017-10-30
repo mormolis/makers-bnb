@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html>
+
+<h1> Properties </h1>
+
+
+<ul id="properties">
+  <% @properties.each do |property| %>
+  <li>
+    Description: <%= property.description %>
+    Price <%= property.price %>
+  
+  </li>
+  <% end %>
+</ul>
+</html>

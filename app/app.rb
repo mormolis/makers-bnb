@@ -1,17 +1,23 @@
 ENV['RACK_ENV'] ||= 'development'
 
 require 'sinatra/base'
-require_relative './data_mapper_setup.rb'
 require 'bcrypt'
+require_relative 'data_mapper_setup.rb'
+require_relative 'models/property.rb'
 
 class App < Sinatra::Base
   enable :sessions
   set :session_secret, 'secret phrase'
 
-  get "/" do
-    "hello"
+  get '/' do
+    'hello'
   end
 
+  get '/properties' do
+    @properties = Property.all
+    p @properties
+    erb(:index)
+  end
 
-  run! if app_file == $0
+  run! if app_file == $PROGRAM_NAME
 end
