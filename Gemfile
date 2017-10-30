@@ -10,6 +10,7 @@ gem 'pg'
 gem 'selenium-webdriver'
 gem 'sinatra'
 gem 'rake'
+gem 'bcrypt'
 
 group :test do
   gem 'rspec'

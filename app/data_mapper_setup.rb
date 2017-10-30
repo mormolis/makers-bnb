@@ -1,7 +1,7 @@
 require 'data_mapper'
 require 'dm-postgres-adapter'
 require_relative './models/property'
-# require_relative './models/user.rb'
+require_relative './models/user.rb'
 # require_relative './models/peep.rb'
 # require_relative './models/reply.rb'
 

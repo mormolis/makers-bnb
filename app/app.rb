@@ -10,7 +10,7 @@ class App < Sinatra::Base
   set :session_secret, 'secret phrase'
 
   get '/' do
-    'hello'
+    redirect '/properties'
   end
 
   get '/properties' do
@@ -23,10 +23,25 @@ class App < Sinatra::Base
   end
 
   post '/properties' do
-    p params
-    p params[:description]
     Property.create(description: params[:description], price: params[:price])
     redirect '/properties'
+  end
+
+  get '/users/new' do
+    erb :'users/new'
+  end
+
+  post '/users' do
+    user = User.create(email: params[:email],
+                       password: params[:password])
+    session[:user_id] = user.id
+    redirect '/properties'
+  end
+
+  helpers do
+    def current_user
+      @current_user ||= User.get(session[:user_id])
+    end
   end
 
   run! if app_file == $PROGRAM_NAME

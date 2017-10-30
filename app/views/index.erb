@@ -9,9 +9,21 @@
   <% @properties.each do |property| %>
   <li>
     Description: <%= property.description %>
-    Price <%= property.price %>
-  
+    Price: £<%= property.price %>
+
   </li>
   <% end %>
 </ul>
+
+<form action="/properties/new" method="get" >
+  <input type="hidden" >
+   <input type="submit" value="New listing">
+ </form>
+
+ <form action="/users/new" method="get" >
+   <input type="hidden" >
+    <input type="submit" value="New User">
+  </form>
+
+
 </html>
