@@ -15,8 +15,18 @@ class App < Sinatra::Base
 
   get '/properties' do
     @properties = Property.all
-    p @properties
     erb(:index)
+  end
+
+  get '/properties/new' do
+    erb :'properties/new'
+  end
+
+  post '/properties' do
+    p params
+    p params[:description]
+    Property.create(description: params[:description], price: params[:price])
+    redirect '/properties'
   end
 
   run! if app_file == $PROGRAM_NAME
