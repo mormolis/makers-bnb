@@ -51,11 +51,7 @@ class App < Sinatra::Base
   end
 
   post '/sessions' do
-    p params[:email]
-    p params[:password]
-
     user = User.first(:email => params[:email])
-    p user
     user = User.authenticate(params[:email], params[:password])
 
     if user
