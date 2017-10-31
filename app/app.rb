@@ -25,7 +25,9 @@ class App < Sinatra::Base
   end
 
   post '/properties' do
-    Property.create(description: params[:description], price: params[:price])
+    p params[:pic]
+    property = Property.create(description: params[:description], price: params[:price], user_id: session[:user_id])
+    Image.create(description: params[:imgdescription], image: params[:pic], property_id: property.id)
     redirect '/properties'
   end
 
@@ -34,8 +36,7 @@ class App < Sinatra::Base
   end
 
   post '/users' do
-    user = User.create(email: params[:email],
-                       password: params[:password])
+    user = User.create(email: params[:email], password: params[:password])
     session[:user_id] = user.id
     redirect '/properties'
   end
