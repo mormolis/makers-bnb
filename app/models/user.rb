@@ -29,4 +29,4 @@ class User
 end
 
 
-DatabaseCleaner.strategy = :truncation
+# DatabaseCleaner.strategy = :truncation

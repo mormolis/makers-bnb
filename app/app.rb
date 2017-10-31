@@ -51,8 +51,13 @@ class App < Sinatra::Base
   end
 
   post '/sessions' do
-    user = User.authenticate(params[:email], params[:password])
+    p params[:email]
+    p params[:password]
+
+    user = User.first(:email => params[:email])
     p user
+    user = User.authenticate(params[:email], params[:password])
+
     if user
       session[:user_id] = user.id
       redirect to '/properties'
@@ -60,6 +65,11 @@ class App < Sinatra::Base
       flash.now[:errors] = ['The email or password is incorrect']
       erb :'sessions/new'
     end
+  end
+
+  get '/logout' do
+    session.clear
+    redirect '/'
   end
 
 
