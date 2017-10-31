@@ -3,7 +3,7 @@ require 'dm-postgres-adapter'
 require_relative './models/property'
 require_relative './models/user.rb'
 require_relative './models/image.rb'
-# require_relative './models/reply.rb'
+require_relative './models/booking.rb'
 
 database_prefix = 'makers_bnb_'
 

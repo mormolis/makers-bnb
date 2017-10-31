@@ -4,7 +4,7 @@
 
 <h1> Properties </h1>
 
-
+<!--
 <ul id="properties">
   <% @properties.each do |property| %>
   <li>
@@ -13,7 +13,17 @@
 
   </li>
   <% end %>
-</ul>
+</ul> -->
+
+<div id="properties">
+  <% @properties.each do |property| %>
+  <a href="<%="/properties/book:#{property.id}"%>">
+        <%= property.description %>
+        <%= property.price %>
+        <%= User.get(property.user_id).email %>
+    </a>
+  <% end %>
+</div>
 
 <form action="/properties/new" method="get" >
   <input type="hidden" >
@@ -24,6 +34,9 @@
    <input type="hidden" >
     <input type="submit" value="New User">
   </form>
-
+  <form action="sessions/new" method="get">
+    <input type="hidden" >
+    <input type="submit" value="Sign-In">
+  </form>`
 
 </html>

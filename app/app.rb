@@ -52,7 +52,7 @@ class App < Sinatra::Base
   end
 
   post '/sessions' do
-    user = User.first(:email => params[:email])
+    user = User.first(email: params[:email])
     user = User.authenticate(params[:email], params[:password])
 
     if user
@@ -69,7 +69,13 @@ class App < Sinatra::Base
     redirect '/'
   end
 
-
+  get '/properties/book:name' do
+    @user = session[:user_id]
+    session[:property_id] = params[:name].delete(':').to_i
+    @property = Property.get(session[:property_id])
+    @bookings = @property.bookings
+    erb(:'properties/booking')
+  end
 
   run! if app_file == $PROGRAM_NAME
 end
