@@ -79,10 +79,12 @@ class App < Sinatra::Base
 
   get '/bookings' do
     @bookings = Booking.all
+    p @bookings
     erb :'bookings/bookings'
   end
 
   post '/bookings' do
+    p params
     Booking.create(check_in: params[:check_in], check_out: params[:check_out], property_id: params[:property_id], user_id: params[:user_id])
     redirect '/bookings'
   end
