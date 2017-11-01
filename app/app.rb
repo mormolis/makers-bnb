@@ -119,12 +119,5 @@ class App < Sinatra::Base
     end
   end
 
-  get '/confirm_booking' do
-    "success!"
-  end
-  get '/to_be_changed' do
-    "property not available"
-  end
-
   run! if app_file == $PROGRAM_NAME
 end
