@@ -10,7 +10,21 @@ require_relative 'lib/notifications_sender.rb'
 class App < Sinatra::Base
   enable :sessions
   set :session_secret, 'secret phrase'
-  register Sinatra::Flash
+  
+  def send_email_notifications(booking_id)
+    begin
+      sender = NotificationSender.new(booking_id)
+      test = sender.login_to_gmail(ENV['gmail_username'], ENV['gmail_password'])
+      sender.send_to_customer
+      sender.send_to_landlord
+      sender.logout
+    rescue Exception => e 
+      session[:error] = "succesfully booked but email notifications did not send"
+      puts e.message
+      puts e.backtrace.inspect
+    end
+
+  end
 
   get '/' do
     redirect '/properties'
@@ -96,12 +110,8 @@ class App < Sinatra::Base
       booking.save
       session[:error] = 'property successfuly booked!'
       #send email to users involved
-      sender = NotificationSender.new(booking.id)
-      test = sender.login_to_gmail(ENV['gmail_username'], ENV['gmail_password'])
-      p test
-      sender.send_to_customer
-      sender.send_to_landlord
-      sender.logout
+      send_email_notifications(booking.id)
+
       redirect '/' if booking.saved?
     else
       session[:error] = "property not available for the selected dates"
