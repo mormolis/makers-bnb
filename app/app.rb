@@ -32,7 +32,7 @@ class App < Sinatra::Base
   post '/properties' do
     p params[:pic]
     property = Property.create(description: params[:description], price: params[:price], user_id: session[:user_id])
-    Image.create(description: params[:imgdescription], image: params[:pic], property_id: property.id)
+    Image.create(description: params[:imgdescription], image: params[:pic], property_id: property.id) # where is this coming from
     redirect '/properties'
   end
 
@@ -84,6 +84,18 @@ class App < Sinatra::Base
     @property = Property.get(session[:property_id])
     @bookings = @property.bookings
     erb(:'properties/booking')
+  end
+
+  get '/bookings' do
+    @bookings = Booking.all
+    p @bookings
+    erb :'bookings/bookings'
+  end
+
+  post '/bookings' do
+    p params
+    Booking.create(check_in: params[:check_in], check_out: params[:check_out], property_id: params[:property_id], user_id: params[:user_id])
+    redirect '/bookings'
   end
 
   run! if app_file == $PROGRAM_NAME
