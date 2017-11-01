@@ -9,7 +9,7 @@ class Property
   property :description,  String
   property :price,        Integer
 
-  has n, :images
+  has n, :photos
   has n, :bookings
   belongs_to :user
 end
