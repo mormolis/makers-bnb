@@ -13,6 +13,7 @@ class User
   property :password_digest, Text
 
   has n, :propertys
+  has n, :bookings
 
   def password=(password)
     @password = password

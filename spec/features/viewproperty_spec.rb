@@ -1,11 +1,13 @@
 require './app/models/property.rb'
 
 feature 'Viewing a list of properties' do
+  before do
+    User.create(email: 'test@test.com', password: '123')
+    Property.create(description: 'Big house in leafy suburb', price: 50, user_id: User.first.id)
+  end
+
   scenario 'See list of properties as I scroll down page' do
-    Property.create(description: 'Big house in leafy suburb', price: 50)
-
     visit '/properties'
-
     expect(page.status_code).to eq 200
     within 'ul#properties' do
       expect(page).to have_content('Big house in leafy suburb')
