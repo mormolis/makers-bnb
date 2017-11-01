@@ -11,9 +11,4 @@ class Booking
 
   belongs_to :property
 
-  # def <=>(other)
-  #   return 1 if date_time < other.date_time
-  #   return 0 if date_time == other.date_time
-  #   -1
-  # end
 end
