@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+<h1> Your Bookings </h1>
+  <ul id="bookings">
+      <% @bookings.each do |booking| %>
+        <li>
+          <%= Property.get(booking.property_id).description %>:
+          Check in: <%= booking.check_in %>
+          Check out: <%= booking.check_out %>
+          </a>
+        </li>
+    <% end %>
+  </ul>
+  </html>
