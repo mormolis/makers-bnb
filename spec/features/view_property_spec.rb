@@ -2,7 +2,11 @@ require './app/models/property.rb'
 
 feature 'Viewing a list of properties' do
   before do
-    User.create(email: 'test@test.com', password: '123')
+    User.create(email: 'test@test.com',
+    password: 'secret1234',
+    username: 'tester',
+    first_name: 'testerman',
+    last_name: 'testerwoman')
     Property.create(description: 'Big house in leafy suburb', price: 50, user_id: User.first.id)
     Property.create(description: 'Small flat', price: 100, user_id: User.first.id)
   end

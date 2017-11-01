@@ -21,6 +21,11 @@ class App < Sinatra::Base
   end
 
   get '/properties/new' do
+    p session[:user_id]
+    p current_user
+    if current_user == nil
+      redirect "/sessions/new"
+    end
     erb :'properties/new'
   end
 
@@ -36,14 +41,18 @@ class App < Sinatra::Base
   end
 
   post '/users' do
-    user = User.create(email: params[:email], password: params[:password])
+    user = User.create( email: params[:email], 
+                        password: params[:password],
+                        first_name: params[:first_name],
+                        last_name: params[:last_name],
+                        username: params[:username])
     session[:user_id] = user.id
     redirect '/properties'
   end
 
   helpers do
     def current_user
-      @current_user ||= User.get(session[:user_id])
+       @current_user ||= User.get(session[:user_id])
     end
   end
 

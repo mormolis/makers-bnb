@@ -1,6 +1,6 @@
 feature 'Creating property listing' do
   before do
-    User.create(email: 'test@test.com', password: '123')
+    User.create(email: 'test@test.com', password: '123', username: 'tester', first_name: 'testerman', last_name: 'testerwoman')
     visit '/sessions/new'
     fill_in :email, with: 'test@test.com'
     fill_in :password, with: '123'

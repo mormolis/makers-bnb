@@ -1,7 +1,12 @@
 <h1>Create an account</h1>
 
 <form action='/users' method='post'>
-<input name='email' type='text' placeholder="Enter your email">
-<input name='password' type='password' placeholder="Enter your password">
+<input name='first_name' type='text' placeholder="Enter your first name" required>
+<input name='last_name' type='text' placeholder="Enter your last name" required>
+<input name='username' type='text' placeholder="Enter a username" required>
+
+<input name='email' type='text' placeholder="Enter your email" required>
+<input name='password' type='password' placeholder="Enter your password" required>
+
 <input type='submit' value='Sign up'>
 </form>
