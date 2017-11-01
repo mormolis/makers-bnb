@@ -27,5 +27,6 @@ class Booking
         end
       end
     end
+    valid
   end
 end

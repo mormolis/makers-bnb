@@ -5,6 +5,7 @@ require 'bcrypt'
 require 'sinatra/flash'
 require_relative 'data_mapper_setup.rb'
 require_relative 'models/property.rb'
+require_relative 'lib/notifications_sender.rb'
 
 class App < Sinatra::Base
   enable :sessions
@@ -28,7 +29,6 @@ class App < Sinatra::Base
   end
 
   post '/properties' do
-    p params[:pic]
     property = Property.create(description: params[:description], price: params[:price], user_id: session[:user_id])
     Photo.create(title: params[:imgdescription], source: params[:pic], property_id: property.id) # where is this coming from
     redirect '/properties'
@@ -86,17 +86,22 @@ class App < Sinatra::Base
 
   get '/bookings' do
     @bookings = Booking.all
-    p @bookings
     erb :'bookings/bookings'
   end
 
   post '/bookings' do
-    p params
     session[:errors] = nil
     booking = Booking.new(check_in: params[:check_in], check_out: params[:check_out], property_id: params[:property_id], user_id: params[:user_id])
     if booking.valid_booking?
       booking.save
       session[:error] = 'property successfuly booked!'
+      #send email to users involved
+      sender = NotificationSender.new(booking.id)
+      test = sender.login_to_gmail(ENV['gmail_username'], ENV['gmail_password'])
+      p test
+      sender.send_to_customer
+      sender.send_to_landlord
+      sender.logout
       redirect '/' if booking.saved?
     else
       session[:error] = "property not available for the selected dates"
