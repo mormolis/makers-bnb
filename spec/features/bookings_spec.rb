@@ -1,28 +1,81 @@
-feature 'Making a booking' do
-  scenario 'As a landlord/visitor I can book a listed property' do
-    pending()
-    User.create(email: 'test@test.com',
-    password: 'secret1234',
-    username: 'tester',
-    first_name: 'testerman',
-    last_name: 'testerwoman')
-    Property.create(description: 'Big house', price: 200, user_id: User.first.id)
-    Property.create(description: 'Small flat', price: 200, user_id: User.first.id)
-    visit '/properties/book:1'
-    fill_in :check_in, with: "16/10/1986"
-    fill_in :check_out, with: "16/10/1987"
-    # fill_in :user_id, with: 1
-    click_button 'Book'
-    expect(current_path).to eq '/bookings'
+describe "Bookings" do
+  before(:each) do
+  @landlord = User.create(email: 'landlord@landlord.com',
+                          password: 'secret1234',
+                          username: 'landlord',
+                          first_name: 'landlord',
+                          last_name: 'landlord')
 
-    within 'ul#bookings' do
-      expect(page).to have_content('Big house')
-      expect(page).not_to have_content('Small flat')
-    end
-  end
+  @rentee = User.create(email: 'rentee@rentee.com',
+                        password: 'secret1234',
+                        username: 'rentee',
+                        first_name: 'rentee',
+                        last_name: 'rentee')
+
+  @big_house = Property.create(description: 'Big house', price: 200, user_id: @landlord.id)
+  @small_house = Property.create(description: 'Small house', price: 100, user_id: @landlord.id)
+
+  @booking1 = Booking.create(check_in: "16/10/1986",
+                              check_out: "17/10/1986",
+                              user_id: @rentee.id,
+                              property_id: @big_house.id)   
+
+@booking2 = Booking.create(check_in: "18/10/1986",
+                            check_out: "19/10/1986",
+                            user_id: @rentee.id,
+                            property_id: @big_house.id)
+
+  @booking3 = Booking.create(check_in: "30/10/1986",
+                              check_out: "03/11/1986",
+                              user_id: @rentee.id,
+                              property_id: @big_house.id)          
+  
 end
 
-def create_users_and_properties
-  User.create()
+it "should store bookings to the databse" do
+    expect(@booking1.saved?).to equal(true)
+    expect(@booking2.saved?).to equal(true)
+    expect(@booking3.saved?).to equal(true)
+  end
+
+describe "Booking Validation" do
+  it "#valid_booking should return false case 1" do
+    booking = Booking.new(check_in: "15/10/1986",
+                              check_out: "4/11/1986",
+                              user_id: @rentee.id,
+                              property_id: @big_house.id)
+    expect(booking.valid_booking?).to equal(false)
+  end
+
+  it "#valid_booking should return true case 2" do
+    booking = Booking.new(check_in: "20/10/1986",
+                              check_out: "25/10/1986",
+                              user_id: @rentee.id,
+                              property_id: @big_house.id)
+    expect(booking.valid_booking?).to equal(true)
+  end
+
+  it "#valid_booking should return false case 3" do
+    booking = Booking.new(check_in: "30/10/1986",
+                              check_out: "03/11/1986",
+                              user_id: @rentee.id,
+                              property_id: @big_house.id)
+    expect(booking.valid_booking?).to equal(false)
+  end
+
+  it "#valid_booking should return false if check in date > check out date" do
+    booking = Booking.new(check_in: "30/10/1988",
+                              check_out: "03/11/1987",
+                              user_id: @rentee.id,
+                              property_id: @big_house.id)
+    expect(booking.valid_booking?).to equal(false)
+  end
+
+
+
+end
+
+end
+
 
 

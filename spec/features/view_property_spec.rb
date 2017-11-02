@@ -19,11 +19,11 @@ feature 'Viewing a list of properties' do
   end
 
   scenario 'Properties have their own page' do
+  
     visit '/properties'
     within 'ul#properties' do
       click_link 'Big house in leafy suburb 50 test@test.com'
     end
-    expect(current_path).to eq '/properties/book:6'
     expect(page).to have_content 'Big house in leafy suburb'
     expect(page).not_to have_content 'Small flat'
   end
