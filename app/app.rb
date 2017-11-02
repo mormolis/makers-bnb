@@ -5,6 +5,7 @@ require 'bcrypt'
 require_relative 'data_mapper_setup.rb'
 require_relative 'models/property.rb'
 require_relative 'lib/notifications_sender.rb'
+require_relative 'lib/property_searcher.rb'
 
 class App < Sinatra::Base
   enable :sessions
@@ -37,7 +38,9 @@ class App < Sinatra::Base
   end
 
   post '/properties' do
-    property = Property.create(description: params[:description], price: params[:price], user_id: session[:user_id])
+ 
+
+    property = Property.create(description: params[:description], price: params[:price], user_id: session[:user_id], location: params[:location])
     Photo.create(title: params[:imgdescription], source: params[:pic], property_id: property.id) # where is this coming from
     redirect '/properties'
   end
@@ -117,11 +120,23 @@ class App < Sinatra::Base
   end
 
   post '/search_results' do
-    params[:location]
-    params[:checkin]
-    params[:checkout]
-    
+    location = params[:location] || ""
+    checkin = params[:checkin] 
+    checkout = params[:checkout] 
+    p checkin
+    p checkout
 
+    search = PropertySearcher.new(location: location, checkin: checkin, checkout: checkout)
+    if checkin != "" && checkout != ""
+      @properties = search.search_available_properties
+    else
+      @properties = search.search_location
+    end
+
+
+    
+    session[:error] = "Displaying results for #{location} #{checkin} #{checkout} "
+    erb(:index)
   end
 
 
