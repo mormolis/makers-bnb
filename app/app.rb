@@ -118,5 +118,18 @@ class App < Sinatra::Base
     end
   end
 
+  get '/search' do
+    erb(:'properties/search')
+  end
+
+  post '/search_results' do
+    params[:location]
+    params[:checkin]
+    params[:checkout]
+    
+
+  end
+
+
   run! if app_file == $PROGRAM_NAME
 end
