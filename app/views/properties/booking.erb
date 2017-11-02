@@ -2,8 +2,8 @@
 <div class=".notifications"><%=session[:error] if session[:error]%></div>
 <h1> Properties </h1>
   <div>
-      <%= @property.price %>
-      <%= User.get(@property.user_id).username %>
+      <h2>£<%= @property.price %> per night</h2>
+      <h2>Landlord: <%= User.get(@property.user_id).username %></h2>
   </div>
   <form action="/bookings" method="post" >
       <input type="hidden" name="property_id" value="<%= @property.id %>" />
@@ -11,7 +11,7 @@
       <input type="date" name="check_in" placeholder="Check-in">
       <input type="date" name="check_out" placeholder="Check-out">
      <input type="submit" value="Book">
-   </form>   
+   </form>
    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
      <ol class="carousel-indicators">
        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
