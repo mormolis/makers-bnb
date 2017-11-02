@@ -1,8 +1,6 @@
-
-<!DOCTYPE html>
-<html>
-
 <h1> Properties </h1>
+<div class=".notifications"><%=session[:error] if session[:error]%></div>
+<% session[:error] = nil%>
   <ul id="properties">
       <% @properties.each do |property| %>
         <li>
@@ -29,4 +27,3 @@
     <input type="submit" value="Sign-In">
   </form>
 
-</html>
