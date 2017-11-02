@@ -12,9 +12,13 @@ class PropertySearcher
 
   def search_available_properties
     throw Error("Dates have not been provided") unless !!checkin && !!checkout
-    
-    booking = Booking.new(check_in: checkin, check_out: checkout, user_id)
-
+    available_properties = []
+    properties = Property.all
+    properties.each do |property|
+      booking = Booking.new(check_in: checkin, check_out: checkout, user_id: User.first.id, property_id: property.id)
+      available_properties <<  property if booking.valid_booking?
+    end
+    available_properties
   end
 
 
