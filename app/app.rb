@@ -9,20 +9,17 @@ require_relative 'lib/notifications_sender.rb'
 class App < Sinatra::Base
   enable :sessions
   set :session_secret, 'secret phrase'
-  
-  def send_email_notifications(booking_id)
-    begin
-      sender = NotificationSender.new(booking_id)
-      test = sender.login_to_gmail(ENV['gmail_username'], ENV['gmail_password'])
-      sender.send_to_customer
-      sender.send_to_landlord
-      sender.logout
-    rescue Exception => e 
-      session[:error] = "succesfully booked but email notifications did not send"
-      puts e.message
-      puts e.backtrace.inspect
-    end
 
+  def send_email_notifications(booking_id)
+    sender = NotificationSender.new(booking_id)
+    test = sender.login_to_gmail(ENV['gmail_username'], ENV['gmail_password'])
+    sender.send_to_customer
+    sender.send_to_landlord
+    sender.logout
+  rescue Exception => e
+    session[:error] = 'succesfully booked but email notifications did not send'
+    puts e.message
+    puts e.backtrace.inspect
   end
 
   get '/' do
@@ -35,9 +32,7 @@ class App < Sinatra::Base
   end
 
   get '/properties/new' do
-    if current_user == nil
-      redirect "/sessions/new"
-    end
+    redirect '/sessions/new' if current_user.nil?
     erb :'properties/new'
   end
 
@@ -52,18 +47,18 @@ class App < Sinatra::Base
   end
 
   post '/users' do
-    user = User.create( email: params[:email], 
-                        password: params[:password],
-                        first_name: params[:first_name],
-                        last_name: params[:last_name],
-                        username: params[:username])
+    user = User.create(email: params[:email],
+                       password: params[:password],
+                       first_name: params[:first_name],
+                       last_name: params[:last_name],
+                       username: params[:username])
     session[:user_id] = user.id
     redirect '/properties'
   end
 
   helpers do
     def current_user
-       @current_user ||= User.get(session[:user_id])
+      @current_user ||= User.get(session[:user_id])
     end
   end
 
@@ -79,7 +74,6 @@ class App < Sinatra::Base
       session[:user_id] = user.id
       redirect to '/properties'
     else
-      flash.now[:errors] = ['The email or password is incorrect']
       erb :'sessions/new'
     end
   end
@@ -108,12 +102,12 @@ class App < Sinatra::Base
     if booking.valid_booking?
       booking.save
       session[:error] = 'property successfuly booked!'
-      #send email to users involved
+      # send email to users involved
       send_email_notifications(booking.id)
 
       redirect '/' if booking.saved?
     else
-      session[:error] = "property not available for the selected dates"
+      session[:error] = 'property not available for the selected dates'
       redirect "/properties/book:#{params[:property_id]}"
     end
   end

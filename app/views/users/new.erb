@@ -1,12 +1,36 @@
-<h1>Create an account</h1>
+<br>
+<h1 align='center'>Create an account</h1>
+<br>
+<br>
+<form action="/users" method="post">
+  <div align='center'>
+    <label for='first_name'>Enter first name</label>
+    <input name='first_name' type='text' placeholder="Enter your first name" required>
+  </div>
 
-<form action='/users' method='post'>
-<input name='first_name' type='text' placeholder="Enter your first name" required>
-<input name='last_name' type='text' placeholder="Enter your last name" required>
-<input name='username' type='text' placeholder="Enter a username" required>
+  <div align='center'>
+    <label>Enter last name</label>
+    <input name='last_name' type='text' placeholder="Enter your last name" required>
+  </div>
 
-<input name='email' type='text' placeholder="Enter your email" required>
-<input name='password' type='password' placeholder="Enter your password" required>
+  <div align='center'>
+  <label>Create username</label>
+    <input name='username' type='text' placeholder="Enter a username" required>
+  </div>
 
-<input type='submit' value='Sign up'>
-</form>
+  <div align='center'>
+    <label>Enter email address</label>
+    <input name='email' type='text' placeholder="Enter your email" required>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else!</small>
+  </div>
+  <br>
+  <div align='center'>
+    <label>Create Password</label>
+    <input name='password' type='password' placeholder="Enter your password" required>
+  </div>
+
+  <div align='center'>
+    <br>
+  <input type='submit' value='Sign up'>
+</div>
+  </form>
