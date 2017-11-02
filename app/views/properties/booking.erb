@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html>
+
+<div class=".notifications"><%=session[:error] if session[:error]%></div>
 <h1> Properties </h1>
-  <div >
+  <div>
       <%= @property.description %>
       <%= @property.price %>
       <%= User.get(@property.user_id).email %>
   </div>
   <form action="/bookings" method="post" >
       <input type="hidden" name="property_id" value="<%= @property.id %>" />
-      <input type="hidden" name="user_id" value="<%= User.get(@property.user_id).id %>" />
+      <input type="hidden" name="user_id" value="<%= current_user.id if current_user %>" />
       <input type="date" name="check_in" placeholder="Check-in">
       <input type="date" name="check_out" placeholder="Check-out">
      <input type="submit" value="Book">
    </form>
-</html>
+

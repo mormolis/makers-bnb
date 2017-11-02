@@ -2,14 +2,28 @@ ENV['RACK_ENV'] ||= 'development'
 
 require 'sinatra/base'
 require 'bcrypt'
-require 'sinatra/flash'
 require_relative 'data_mapper_setup.rb'
 require_relative 'models/property.rb'
+require_relative 'lib/notifications_sender.rb'
 
 class App < Sinatra::Base
   enable :sessions
   set :session_secret, 'secret phrase'
-  register Sinatra::Flash
+  
+  def send_email_notifications(booking_id)
+    begin
+      sender = NotificationSender.new(booking_id)
+      test = sender.login_to_gmail(ENV['gmail_username'], ENV['gmail_password'])
+      sender.send_to_customer
+      sender.send_to_landlord
+      sender.logout
+    rescue Exception => e 
+      session[:error] = "succesfully booked but email notifications did not send"
+      puts e.message
+      puts e.backtrace.inspect
+    end
+
+  end
 
   get '/' do
     redirect '/properties'
@@ -21,8 +35,6 @@ class App < Sinatra::Base
   end
 
   get '/properties/new' do
-    p session[:user_id]
-    p current_user
     if current_user == nil
       redirect "/sessions/new"
     end
@@ -30,9 +42,8 @@ class App < Sinatra::Base
   end
 
   post '/properties' do
-    p params[:pic]
     property = Property.create(description: params[:description], price: params[:price], user_id: session[:user_id])
-    Image.create(description: params[:imgdescription], image: params[:pic], property_id: property.id) # where is this coming from
+    Photo.create(title: params[:imgdescription], source: params[:pic], property_id: property.id) # where is this coming from
     redirect '/properties'
   end
 
@@ -88,14 +99,23 @@ class App < Sinatra::Base
 
   get '/bookings' do
     @bookings = Booking.all
-    p @bookings
     erb :'bookings/bookings'
   end
 
   post '/bookings' do
-    p params
-    Booking.create(check_in: params[:check_in], check_out: params[:check_out], property_id: params[:property_id], user_id: params[:user_id])
-    redirect '/bookings'
+    session[:errors] = nil
+    booking = Booking.new(check_in: params[:check_in], check_out: params[:check_out], property_id: params[:property_id], user_id: params[:user_id])
+    if booking.valid_booking?
+      booking.save
+      session[:error] = 'property successfuly booked!'
+      #send email to users involved
+      send_email_notifications(booking.id)
+
+      redirect '/' if booking.saved?
+    else
+      session[:error] = "property not available for the selected dates"
+      redirect "/properties/book:#{params[:property_id]}"
+    end
   end
 
   run! if app_file == $PROGRAM_NAME
