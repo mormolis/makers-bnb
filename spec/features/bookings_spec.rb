@@ -22,5 +22,7 @@ feature 'Making a booking' do
   end
 end
 
+def create_users_and_properties
+  User.create()
 
 

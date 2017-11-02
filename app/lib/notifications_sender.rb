@@ -22,7 +22,7 @@ class NotificationSender
 
   def send_to_customer
     email_body = "Thank you for your booking! 
-                  Bellow there are some details 
+                  Below there are some details 
                   of your booking\nCheck in date #{booking.check_in}\n
                   Check out date #{booking.check_out}\n\n
                   Property:#{property.description}\n
@@ -36,7 +36,7 @@ class NotificationSender
 
   def send_to_landlord
     email_body = "You have a new booking! 
-    Bellow there are some details 
+    Below there are some details 
     of the booking\nCheck in date #{booking.check_in}\n
     Check out date #{booking.check_out}\n\n
     Property:#{property.id}\n

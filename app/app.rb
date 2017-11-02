@@ -2,7 +2,6 @@ ENV['RACK_ENV'] ||= 'development'
 
 require 'sinatra/base'
 require 'bcrypt'
-require 'sinatra/flash'
 require_relative 'data_mapper_setup.rb'
 require_relative 'models/property.rb'
 require_relative 'lib/notifications_sender.rb'
