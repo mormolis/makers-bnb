@@ -30,7 +30,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/logout">Log out</a>
       </li>
-      
+
     </ul>
   </div>
 </nav>
@@ -38,11 +38,13 @@
 
 
     <% if current_user %>
-      Welcome, <%= current_user.email %> - <a href="/logout">log out</a> 
-      <%else%>
-      Please <a href="/sessions/new">log in here</a>
+      Welcome, <%= current_user.email %> - <a href="/logout">log out</a>
     <% end %>
-    <%= yield %>  <!-- this then yields to the view which has been called by your controller -->
+    <div class="container">
+      <div class="well">
+        <%= yield %>  <!-- this then yields to the view which has been called by your controller -->
+      </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
