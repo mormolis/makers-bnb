@@ -14,7 +14,6 @@ class PropertySearcher
     throw Error("Dates have not been provided") if checkin=="" || checkout==""
     
     available_properties = []
-    p search_location
     properties =  search_location == [] ? Property.all : search_location
     properties.each do |property|
       booking = Booking.new(check_in: checkin, check_out: checkout, user_id: User.first.id, property_id: property.id)
