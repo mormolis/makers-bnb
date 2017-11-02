@@ -1,14 +1,22 @@
-<h1> Properties </h1>
-<div class=".notifications"><%=session[:error] if session[:error]%></div>
-<% session[:error] = nil%>
-  <ul id="properties">
-      <% @properties.each do |property| %>
-        <li>
-          <a href="<%="/properties/book:#{property.id}"%>">
-            <%= property.description %>
-            <%= property.price %>
-            <%= User.get(property.user_id).email %>
-          </a>
-        </li>
-    <% end %>
-  </ul>
+
+
+  <h1> Properties </h1>
+  <div class=".notifications"><%=session[:error] if session[:error]%></div>
+  <% session[:error] = nil%>
+    <ul id="properties">
+        <div class="card-deck">
+        <% @properties.each do |property| %>
+            <a href="<%="/properties/book:#{property.id}"%>">
+
+
+                <div class="card">
+                  <img class="card-img-top" src="https://placeimg.com/400/400/archs" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 class="card-title"><%= property.description %></h4>
+                    <p class="card-text"><%= property.price %></p>
+                    <p class="card-text"><small class="text-muted"><%= User.get(property.user_id).email %></small></p>                  </div>
+                </div>
+            </a>
+      <% end %>
+      </div>
+      </ul>
