@@ -8,5 +8,6 @@ class Photo
   
   mount_uploader :source, PhotoUploader
  
+  belongs_to :property
 
 end

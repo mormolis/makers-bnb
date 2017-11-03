@@ -1,9 +1,7 @@
 ENV['RACK_ENV'] ||= 'development'
 
-require 'sinatra/base'
-require 'bcrypt'
 require_relative 'data_mapper_setup.rb'
-require_relative 'models/property.rb'
+
 require_relative 'lib/notifications_sender.rb'
 require_relative 'lib/property_searcher.rb'
 
@@ -34,14 +32,14 @@ class App < Sinatra::Base
 
   get '/properties/new' do
     redirect '/sessions/new' if current_user.nil?
+    photo = Photo.new
     erb :'properties/new'
   end
 
   post '/properties' do
- 
-
     property = Property.create(description: params[:description], price: params[:price], user_id: session[:user_id], location: params[:location])
-    Photo.create(title: params[:imgdescription], source: params[:pic], property_id: property.id) # where is this coming from
+    photo = Photo.create(title: params[:imgdescription], source: params[:pic], property_id: property.id) # where is this coming from
+    p photo
     redirect '/properties'
   end
 
