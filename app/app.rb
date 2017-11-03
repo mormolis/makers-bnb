@@ -120,22 +120,13 @@ class App < Sinatra::Base
   end
 
   post '/search_results' do
-    location = params[:location] || ""
+    location = params[:location] 
     checkin = params[:checkin] 
     checkout = params[:checkout] 
-    p checkin
-    p checkout
-
     search = PropertySearcher.new(location: location, checkin: checkin, checkout: checkout)
-    if checkin != "" && checkout != ""
-      @properties = search.search_available_properties
-    else
-      @properties = search.search_location
-    end
-
-
-    
-    session[:error] = "Displaying results for #{location} #{checkin} #{checkout} "
+    @properties = search.search_available_properties
+    session[:error] = search.display_message
+    p session[:error]
     erb(:index)
   end
 

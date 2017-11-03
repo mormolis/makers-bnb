@@ -32,4 +32,3 @@ class User
   end
 end
 
-# DatabaseCleaner.strategy = :truncation

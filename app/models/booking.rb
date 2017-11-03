@@ -14,6 +14,7 @@ class Booking
 
   #maybe refactor some day :P
   def valid_booking? 
+    return false if self.check_in < Time.now || self.check_out < Time.now
     return false if self.check_in > self.check_out
     property = Property.get(self.property_id)
     valid = true
