@@ -1,27 +1,86 @@
-<<<<<<< HEAD
+.awe-color{
+  color: #62868D;
+  color: #D78B7D;
+  color: #F9F3E3;
+  color: #CFC8B5;
+
+}
+
+.card-title, .card-text{
+  color: #62868D;
+}
+.bg-awesome{
+  background-color: #62868D;
+}
 .navbar-text {
   color: black;
 }
-<<<<<<< HEAD
+.card{
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+.left-menu{
+  align-content: left;
+}
+.awe-button{
+  margin: 10px;
+  color: #fff;
+  background: rgba(0,0,0,0);
+  border: solid 1px #fff;
+  font-size: 1em;
+  padding: 10px 20px 10px 20px;
+  -webkit-border-radius: 50;
+  -moz-border-radius: 50;
+  border-radius: 50px;
+}
+
+.awe-button:hover{
+  border-color: #fff;
+  color: #346392;
+  background-color: #fff
+}
+
+.awe-button:active{
+  border-color: #27496d;
+  color: #27496d;
+}
+
+.awe-button-dark{
+  margin: 10px;
+  color: #62868D;
+  background: rgba(0,0,0,0);
+  border: solid 1px #62868D;
+  font-size: 1em;
+  padding: 10px 20px 10px 20px;
+  -webkit-border-radius: 50;
+  -moz-border-radius: 50;
+  border-radius: 50px;
+}
+
+.awe-button-dark:hover{
+  border-color: #62868D;
+  color: #346392;
+  background-color: #fff
+}
+
+.awe-button-dark:active{
+  border-color: #27496d;
+  color: #27496d;
+}
+body {
+  background-color: linen;
+  font-family: 'Raleway', sans-serif;
+}
 
 h1 {
-  color: green;
-  font-family: "Raleway", Arial, Helvetica, sans-serif;
-  text-align: center;
-  font-size: 400%
+  color: #D78B7D;
+  
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
-h2 {
-  font-family: 'Dosis', sans-serif;
-  text-align: center;
-  font-size: 300%
-}
 
-ul#links {
-  font-family: 'Dosis', sans-serif;
-  text-align: center;
-  list-style-position: inside;
-}
+
 
 .button {
   border-radius: 25px;
@@ -82,13 +141,3 @@ input[type=text]:focus {
   background-color: transparent;
   text-align: center;
 }
-
-<!DOCTYPE html><html><title>MakersBnB</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><style>body, h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", Arial, Helvetica, sans-serif
-}
-
-</style><body class="w3-light-grey"><!-- Navigation Bar --><div class="w3-bar w3-white w3-large"><a href="#" class="w3-bar-item w3-button w3-blue w3-mobile"><i class="fa fa-home w3-margin-right"></i>MakersBnB</a><a href="#rooms" class="w3-bar-item w3-button w3-mobile">Listings</a><a href="#contact" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Book Now</a><a href="#contact" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Sign in</a><a href="#contact" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Sign up</a></div><!-- Header --><header class="w3-display-container w3-content" style="max-width:1500px;"><img class="w3-image" src="/w3images/hotel.jpg" alt="The Hotel" style="min-width:1000px" width="1500" height="800"><div class="w3-display-left w3-padding w3-col l6 m8"><div class="w3-container w3-blue"><h2><i class="fa fa-home w3-margin-right"></i></h2></div><div class="w3-container w3-white w3-padding-16"><form action="/action_page.php" target="_blank"><div class="w3-row-padding" style="margin:0 -16px;"><div class="w3-half w3-margin-bottom"><label><i class="fa fa-calendar-o"></i>Check In</label><input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required></div><div class="w3-half"><label><i class="fa fa-calendar-o"></i>Check Out</label><input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required></div></div></div><button class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i>Search availability</button></form></div></div></header><!-- Page content --><div class="w3-content" style="max-width:1532px;"><div class="w3-container w3-margin-top" id="listings"><h3>Listings</h3><p>Your home from home (someone elses home)</p></div><div class="w3-row-padding"><div class="w3-col m3"><label><i class="fa fa-calendar-o"></i>Check In</label><input class="w3-input w3-border" type="text" placeholder="DD MM YYYY"></div><div class="w3-col m3"><label><i class="fa fa-calendar-o"></i>Check Out</label><input class="w3-input w3-border" type="text" placeholder="DD MM YYYY"></div><div class="w3-col m2"><label><i class="fa fa-search"></i>Search</label><button class="w3-button w3-block w3-blue">Search</button></div></div><div class="w3-row-padding w3-padding-16"><div class="w3-third w3-margin-bottom"><img src="/w3images/room_single.jpg" alt="Norway" style="width:100%"><div class="w3-container w3-white"><h3>Property name</h3><h6 class="w3-opacity">Description</h6><p>Price per night</p><button class="w3-button w3-block w3-blue w3-margin-bottom">Choose Room</button></div></div><!-- End page content --></div><!-- Footer --><footer class="w3-padding-32 w3-blue w3-center w3-margin-top"></footer></body></html>
-=======
->>>>>>> 405a7e740f7887b6ae37ee62b9ec023f8249fcdc
-=======
->>>>>>> f7ce4decef7f2b4fb3890ebc85bbda49d8c627d4
