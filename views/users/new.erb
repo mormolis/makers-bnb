@@ -1,0 +1,48 @@
+<br>
+<h1 align='center'>Create an account</h1>
+<br>
+<br>
+<head>
+<style>
+body {
+    background-color: linen;
+}
+
+h1 {
+    color: maroon;
+    margin-left: 40px;
+}
+</style>
+</head>
+<form action="/users" method="post">
+  <div align='center'>
+    <label for='first_name'>Enter first name</label>
+    <input name='first_name' type='text' placeholder="Enter your first name" required>
+  </div>
+
+  <div align='center'>
+    <label>Enter last name</label>
+    <input name='last_name' type='text' placeholder="Enter your last name" required>
+  </div>
+
+  <div align='center'>
+  <label>Create username</label>
+    <input name='username' type='text' placeholder="Enter a username" required>
+  </div>
+
+  <div align='center'>
+    <label>Enter email address</label>
+    <input name='email' type='text' placeholder="Enter your email" required>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else!</small>
+  </div>
+  <br>
+  <div align='center'>
+    <label>Create Password</label>
+    <input name='password' type='password' placeholder="Enter your password" required>
+  </div>
+
+  <div align='center'>
+    <br>
+  <input type='submit' value="Create Account" class="btn btn-outline-secondary">
+  </div>
+  </form>

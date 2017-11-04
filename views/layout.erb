@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>MakersBnB</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-awesome">
+    <a class="navbar-brand" href="/">
+      <img src="https://pbs.twimg.com/profile_images/3087236754/91e379b7e0006d38ee0526946a38a1ea_200x200.png" width="55" height="55"
+        class="rounded-circle" alt=""> TeamAwesomeBnB
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/properties/new">New Listing</a>
+        </li>
+
+        <% if !current_user %>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/new">Sign up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sessions/new">Sign in</a>
+          </li>
+          <% elsif current_user %>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Sign out</a>
+            </li>
+            <% end %>
+      </ul>
+      <% if current_user %>
+        <span class="navbar-text">
+          Logged in as
+          <%= current_user.first_name %>!
+        </span>
+        <% end %>
+            <div class="my-2 my-lg-0">
+              <button class="awe-button my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Search</button>
+            </div>
+          
+    </div>
+  </nav>
+
+  <!-- Search popup -->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <h3> Search for availability</h3>
+        <form method="post" action="/search_results">
+          <label for="location">Location
+            <input type="text" name="location">
+          </label>
+          <label for="checkin">Check in date
+            <input type="date" name="checkin">
+          </label>
+          <label for="checkout">Check out date
+            <input type="date" name="checkout">
+          </label>
+          <input type="submit" value="search" class="awe-button-dark">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--  END Search popup -->
+  <div class="container">
+    <div class="well">
+      <%= yield %>
+        <!-- this then yields to the view which has been called by your controller -->
+    </div>
+  </div>
+
+</body>
+
+</html>

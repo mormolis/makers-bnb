@@ -1,2 +1,2 @@
-require_relative "./app/app.rb"
+require_relative "./app.rb"
 run App
