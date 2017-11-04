@@ -5,9 +5,6 @@ class Photo
 
   property :id, Serial
   property :title, String
-  
-  mount_uploader :source, PhotoUploader
- 
   belongs_to :property
-
+  mount_uploader :source, PhotoUploader
 end
